@@ -18,21 +18,34 @@ yarn add keylog.io
 ```
 
 ## Basic usage
-Bla bla bla
 ```js
-'use strict';
+const keyloggerServer = require('socket.io');
 
-// Require the module
-const keyloggerServer = require('../main');
-
-// Start the server
+// Start the server connected with database
 keyloggerServer({
   serveDemo: true,
-  serveClient: true
+  serveClient: true,
+  database: {
+    name: 'keylogger',
+    username: 'user',
+    password: 'pass'
+  }
 });
 
 ```
 You call also start it from the __command line__, take a look at the arguments by typing: `keylog-io --help`
+```bash
+Options:
+
+    -V, --version          output the version number
+    -h, --hostname <host>  The address where start the server (default: 0.0.0.0)
+    -p, --port <port>      The port where start the server (default: 9000)
+    -c, --client           Serve the client keylogger file
+    -d, --demo             Serve the demo client page
+    -h, --help             output usage information
+
+```
+For a full list of options see the [default](lib/index.js#L27-L49) options on source code.
 
 ## Todo
 - [x] Basic HTTP Authentication for administrator interface with options for username and password
