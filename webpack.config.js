@@ -13,7 +13,7 @@ module.exports = {
   target: 'web',
   entry: path.resolve(__dirname, 'lib/client.js'),
   output: {
-    path: path.resolve(__dirname, 'lib/demo'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.min.js'
   },
   plugins: [

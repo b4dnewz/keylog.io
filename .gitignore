@@ -5,8 +5,6 @@ dist
 /dist-server
 /tmp
 /out-tsc
-bundle.js
-bundle.min.js
 
 # dependencies
 /node_modules
