@@ -21,8 +21,7 @@
     "demo": "node ./example/index.js",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "npm run build"
+    "e2e": "ng e2e"
   },
   "private": false,
   "dependencies": {
