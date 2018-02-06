@@ -1,12 +1,13 @@
 # keylog.io
 
-## How it works?
-
 #### Backend
 The backend consist of an [expressjs](https://expressjs.com/) webserver which serves the administrator interface using __Basic HTTP Authentication__ customizable from the options and a [socket.io](https://socket.io/) server wait and handle the receiving of key logs from various sources, stores them and forward them to the administrator interface for be seen and analyzed.
 
 #### Interface
-The administrator interface for visualize the key logs archive and the live key logs feed from various clients is built with Angular using [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6.
+The administrator interface for visualize the key logs archive and the live key logs feed from various clients is built with Angular using [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6. The administrator interface comes with a basic HTTP authorization which defaults to: `keylog.io`
+
+#### Client script
+The client script is a socketio.io client with key logger functions that try to hide himself by pausing when the dev-tools (inspector) is open. It catches only relevant keys and send them back to the server as a buffer with additional information, take a look at the [code](lib/client.js) if you want to see more.
 
 ## Installation
 ```
@@ -34,17 +35,26 @@ keyloggerServer({
 
 ```
 You call also start it from the __command line__, take a look at the arguments by typing: `keylog-io --help`
-```bash
+```
 Options:
 
-    -V, --version          output the version number
-    -h, --hostname <host>  The address where start the server (default: 0.0.0.0)
-    -p, --port <port>      The port where start the server (default: 9000)
-    -c, --client           Serve the client keylogger file
-    -d, --demo             Serve the demo client page
-    -h, --help             output usage information
+    -V, --version  output the version number
+    -h, --help     output usage information
+
+
+Commands:
+
+  start [options]                    Start the keylogger server
+  build [options] <hostname> [port]  Build the client flle for the given endpoint
 
 ```
+In order to use it from the command line you have to install it globally by typing:
+
+```
+npm install -g keylog.io
+yarn global add keylog.io
+```
+
 For a full list of options see the [default](lib/index.js#L27-L49) options on source code.
 
 ## Todo
@@ -52,6 +62,7 @@ For a full list of options see the [default](lib/index.js#L27-L49) options on so
 - [x] Optionally save key logs results on a MySQL database
 - [x] Change behavior, pausing and trying to hide when devtools is open
 - [ ] Test key logger performances with multiple different hosts
+- [ ] Handle mobile input events
 - [ ] Complete the administrator interface with filters, groups, labels and stuff..
 - [ ] Create different routes for live feeds and archive
 - [ ] Get drunk at the end of all this

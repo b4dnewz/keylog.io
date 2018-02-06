@@ -8,6 +8,5 @@ const keyloggerServer = require('../lib/index');
 keyloggerServer({
   serveDemo: true,
   serveClient: true,
-  hostname: process.env.SERVER_URL,
-  port: process.env.SERVER_PORT
+  hostname: 'localhost'
 });
