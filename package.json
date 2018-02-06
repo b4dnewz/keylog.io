@@ -14,11 +14,9 @@
     "dist"
   ],
   "scripts": {
-    "start": "concurrently \"ng serve --open\" \"nodemon --watch ./lib ./scripts/dev-server.js\"",
-    "server": "node ./scripts/dev-server.js",
-    "build": "npm run build-server && npm run build-client",
-    "build-server": "ng build --prod",
-    "build-client": "webpack --config webpack.config.js",
+    "start": "concurrently \"ng serve -dop false --open\" \"npm run server\"",
+    "server": "nodemon --watch ./lib ./scripts/dev-server.js",
+    "build": "ng build --prod",
     "demo": "node ./example/index.js",
     "test": "ng test",
     "lint": "ng lint",
@@ -31,7 +29,8 @@
     "express-basic-auth": "^1.1.3",
     "moment": "^2.20.1",
     "mysql": "^2.15.0",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "webpack": "^3.10.0"
   },
   "devDependencies": {
     "@angular/animations": "^5.2.2",

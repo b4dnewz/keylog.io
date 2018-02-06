@@ -21,7 +21,9 @@ module.exports = {
       SERVER_URL: JSON.stringify(endpoint)
     }),
     new webpack.optimize.UglifyJsPlugin({
-      minimize: true
+      minimize: true,
+      comments: false,
+      beautify: false
     })
   ]
 };
