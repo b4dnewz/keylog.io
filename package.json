@@ -3,12 +3,12 @@
   "version": "0.1.2",
   "description": "An express/socketio keylogger server with administrator interface.",
   "license": "MIT",
-  "main": "./main.js",
+  "main": "main.js",
   "bin": {
     "keylog-io": "./bin/index.js"
   },
   "files": [
-    "./main.js",
+    "main.js",
     "lib",
     "bin",
     "dist"
