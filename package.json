@@ -8,6 +8,7 @@
     "keylog-io": "./bin/index.js"
   },
   "files": [
+    "./main.js",
     "lib",
     "bin",
     "dist"

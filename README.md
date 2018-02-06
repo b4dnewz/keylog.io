@@ -19,7 +19,7 @@ yarn add keylog.io
 
 ## Basic usage
 ```js
-const keyloggerServer = require('socket.io');
+const keyloggerServer = require('keylog.io');
 
 // Start the server connected with database
 keyloggerServer({
