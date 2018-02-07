@@ -8,5 +8,9 @@ const keyloggerServer = require('../lib/index');
 keyloggerServer({
   serveDemo: true,
   serveClient: true,
-  hostname: 'localhost'
+  hostname: 'localhost',
+  database: {
+    username: process.env.DBUSER,
+    password: process.env.DBPASS
+  }
 });

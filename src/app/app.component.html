@@ -29,14 +29,14 @@
 
     <!-- search button -->
     <span [hidden]="showFilter">
-      <button mat-icon-button (click)="toggleFilter()">
+      <button mat-icon-button (click)="toggleFilter()" matTooltip="Filter">
         <mat-icon>search</mat-icon>
       </button>
     </span>
 
-    <span class="profile-button">
-      <button mat-icon-button>
-        <mat-icon>account_circle</mat-icon>
+    <span class="clients-button" [hidden]="!clients.length">
+      <button mat-icon-button matTooltip="Connected clients">
+        <mat-icon>people</mat-icon> {{clients.length}}
       </button>
     </span>
 

