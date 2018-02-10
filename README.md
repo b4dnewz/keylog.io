@@ -62,7 +62,7 @@ For a full list of options see the [default](lib/index.js#L27-L49) options on so
 - [x] Optionally save key logs results on a MySQL database
 - [x] Change behavior, pausing and trying to hide when devtools is open
 - [ ] Test key logger performances with multiple different hosts
-- [ ] Handle mobile input events
+- [x] Handle mobile input events (mobile browsers support)
 - [ ] Complete the administrator interface with filters, groups, labels and stuff..
 - [ ] Create different routes for live feeds and archive
 - [ ] Get drunk at the end of all this
