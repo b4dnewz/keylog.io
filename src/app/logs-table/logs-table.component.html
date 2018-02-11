@@ -1,6 +1,6 @@
 <mat-table #table [dataSource]="dataSource" matSort>
 
-  <ng-container matColumnDef="select">
+  <ng-container matColumnDef="select" *ngIf="selectable">
     <mat-header-cell *matHeaderCellDef>
       <mat-checkbox (change)="$event ? masterToggle() : null"
         [checked]="selection.hasValue() && isAllSelected()"

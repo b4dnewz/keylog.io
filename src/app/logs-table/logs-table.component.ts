@@ -13,6 +13,7 @@ import { LogItem } from '../log-item'
 export class LogsTableComponent implements OnInit {
 
   @Input() autoScroll: Boolean = false;
+  @Input() selectable: Boolean;
   @Input() filter: string = '';
   @Input() data: Array<LogItem> = [];
 
@@ -20,7 +21,7 @@ export class LogsTableComponent implements OnInit {
   @Input() selected?: Array<LogItem>;
   @Output() selectedChange = new EventEmitter<Array<LogItem>>();
 
-  @ViewChild('table', {read: ElementRef}) private table: ElementRef;
+  @ViewChild('table', { read: ElementRef }) private table: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
 
   differ: any;
@@ -29,7 +30,6 @@ export class LogsTableComponent implements OnInit {
   // Table details
   dataSource = new MatTableDataSource<LogItem>();
   displayedColumns: Array<String> = [
-    'select',
     'element',
     'key',
     'hostname',
@@ -39,10 +39,6 @@ export class LogsTableComponent implements OnInit {
 
   constructor(private iterableDiffers: IterableDiffers) {
     this.differ = this.iterableDiffers.find([]).create(null);
-    this.selection = new SelectionModel<LogItem>(true, []);
-    this.selection.onChange.subscribe(v => {
-      this.selectedChange.emit(this.selection.selected)
-    })
   }
 
   ngOnChanges(changes) {
@@ -67,6 +63,14 @@ export class LogsTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.data = this.data
+
+    if (this.selectable) {
+      this.displayedColumns.unshift('select')
+      this.selection = new SelectionModel<LogItem>(true, []);
+      this.selection.onChange.subscribe(v => {
+        this.selectedChange.emit(this.selection.selected)
+      })
+    }
 
     // Scroll to bottom
     if (this.autoScroll) {

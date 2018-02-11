@@ -2,27 +2,30 @@
 
   <mat-sidenav mode="side" opened="true" disableClose="true">
 
-    <div class="search-filter">
-
-      <mat-form-field floatLabel="never">
-        <input matInput [(ngModel)]="textFilter" placeholder="Search something..">
-      </mat-form-field>
-
-      <button mat-icon-button (click)="textFilter = ''">
-        <mat-icon>clear</mat-icon>
-      </button>
-
-    </div>
-
-    <!-- unique hostnames -->
     <app-hostnames-list [data]="items" [(selected)]="selectedHostnames"></app-hostnames-list>
 
   </mat-sidenav>
 
   <mat-sidenav-content>
 
-    <!-- results table -->
-    <logs-table [data]="items | hostname: selectedHostnames" [filter]="textFilter" [autoScroll]="true"></logs-table>
+    <mat-toolbar>
+      <span class="search-bar">
+        <input
+          class="search-input"
+          placeholder="Type to filter.."
+          (keyup.enter)="search($event.target.value)"
+          (keyup.esc)="textFilter = ''"
+          [(ngModel)]="textFilter"
+        />
+      </span>
+    </mat-toolbar>
+
+    <logs-table
+      [data]="items | hostname: selectedHostnames"
+      [filter]="textFilter"
+      [selectable]="false"
+      [autoScroll]="true">
+    </logs-table>
 
   </mat-sidenav-content>
 
