@@ -1,0 +1,45 @@
+<mat-sidenav-container>
+
+  <mat-sidenav mode="side" opened="true">
+
+    <div class="search-filter">
+
+      <mat-form-field floatLabel="never">
+        <input matInput (keyup.enter)="search($event.target.value)" [(ngModel)]="textFilter" placeholder="Search something..">
+      </mat-form-field>
+
+      <button mat-icon-button (click)="toggleFilter()">
+        <mat-icon>clear</mat-icon>
+      </button>
+
+    </div>
+
+    <div class="dates-filter">
+
+      <div class="start-date">
+        <mat-form-field>
+          <input matInput [(ngModel)]="startDate" [matDatepicker]="startpicker" (dateChange)="update()" placeholder="Start date">
+          <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+          <mat-datepicker #startpicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="end-date">
+        <mat-form-field>
+          <input matInput [(ngModel)]="endDate" [min]="startDate" [max]="today" [matDatepicker]="endpicker" (dateChange)="update()" placeholder="End date">
+          <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+          <mat-datepicker #endpicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <logs-table [data]="items" [filter]="textFilter"></logs-table>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
