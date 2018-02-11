@@ -1,0 +1,13 @@
+<div class="hostnames-list">
+
+  <div class="title sidebar-title">
+    <mat-icon matListIcon>layers</mat-icon> Hostnames
+  </div>
+
+  <mat-selection-list (selectionChange)="onSelectionChange()" #channels>
+    <mat-list-option *ngFor="let host of hostnames" [value]="host">
+      {{host}}
+    </mat-list-option>
+  </mat-selection-list>
+
+</div>
