@@ -1,0 +1,23 @@
+.app-brand {
+  display: flex;
+  align-items: center;
+}
+
+.app-icon {
+  margin-right: 10px;
+}
+
+.app-logo {}
+.app-logo:hover {
+  color: #ffc03e;
+}
+
+.app-nav {}
+
+.divider {
+  flex: 1 1 auto;
+}
+
+.pointer {
+  cursor: pointer;
+}
