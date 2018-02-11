@@ -2,24 +2,52 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Vendor
+import { MomentModule } from 'angular2-moment';
+import { MaterialModule } from './Material/material.module';
+
+// Router
+import { AppRoutingModule } from './app.router';
+
+// Components
 import { AppComponent } from './app.component';
-import { MaterialModule } from './material.module';
+import { LiveFeedComponent } from './live-feed/live-feed.component';
+import { ArchiveComponent } from './archive/archive.component';
+import { LogsTableComponent } from './logs-table/logs-table.component';
+import { HeaderComponent } from './header/header.component';
+
+// Services
+import { SocketService } from './socket.service'
+
+// Filters and Pipes
+import { HostnamePipe } from './hostname.pipe';
+import { HostnamesListComponent } from './hostnames-list/hostnames-list.component';
 
 // @NgModule decorator with its metadata
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LiveFeedComponent,
+    ArchiveComponent,
+    LogsTableComponent,
+    HeaderComponent,
+    HostnamePipe,
+    HostnamesListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    AppRoutingModule,
+    MaterialModule,
+    MomentModule
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 
