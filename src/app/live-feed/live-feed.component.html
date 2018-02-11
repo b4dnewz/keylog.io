@@ -1,0 +1,47 @@
+<mat-sidenav-container>
+
+  <mat-sidenav mode="side" opened="true" disableClose="true">
+
+    <div class="title sidebar-title">
+      <mat-icon matListIcon>layers</mat-icon> Hostnames
+    </div>
+
+    <mat-selection-list (selectionChange)="onSelectionChange()" #channels>
+      <mat-list-option *ngFor="let host of hostnames" [value]="host">
+        {{host}}
+      </mat-list-option>
+    </mat-selection-list>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <!-- results toolbar -->
+    <mat-toolbar>
+
+      <span class="divider"></span>
+
+      <span class="search-bar">
+
+        <button mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+
+        <mat-form-field floatLabel="never">
+          <input matInput (keyup.enter)="search($event.target.value)" [(ngModel)]="textFilter" placeholder="Search something..">
+        </mat-form-field>
+
+        <button mat-icon-button (click)="textFilter = ''">
+          <mat-icon>clear</mat-icon>
+        </button>
+
+      </span>
+
+    </mat-toolbar>
+
+    <!-- results table -->
+    <logs-table [data]="items | hostname: selectedHostnames" [filter]="textFilter"></logs-table>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
