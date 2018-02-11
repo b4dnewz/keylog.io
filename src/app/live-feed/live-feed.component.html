@@ -13,7 +13,6 @@
         <input
           class="search-input"
           placeholder="Type to filter.."
-          (keyup.enter)="search($event.target.value)"
           (keyup.esc)="textFilter = ''"
           [(ngModel)]="textFilter"
         />
