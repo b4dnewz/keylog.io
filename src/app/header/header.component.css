@@ -3,10 +3,6 @@
   align-items: center;
 }
 
-.app-icon {
-  margin-right: 10px;
-}
-
 .app-logo {}
 .app-logo:hover {
   color: #ffc03e;
