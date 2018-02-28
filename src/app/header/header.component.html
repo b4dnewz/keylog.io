@@ -3,7 +3,7 @@
   <mat-toolbar-row>
 
     <span class="app-brand">
-      <span [routerLink]="['/']" class="app-logo pointer">
+      <span [routerLink]="['/']" class="app-logo" [ngClass]="{pulse: isConnected()}">
         {{title}}
       </span>
     </span>

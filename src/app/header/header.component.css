@@ -3,13 +3,22 @@
   align-items: center;
 }
 
-.app-logo {}
+.app-logo {
+  cursor: pointer;
+}
+
+.app-logo.pulse {
+  animation: pulse 1500ms infinite;
+}
+
 .app-logo:hover {
   color: #ffc03e;
 }
 
 .app-nav {}
 
-.pointer {
-  cursor: pointer;
+@keyframes pulse {
+  50% {
+    color: #ffc03e;
+  }
 }

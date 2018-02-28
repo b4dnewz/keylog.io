@@ -7,6 +7,7 @@ import { SocketService } from '../socket.service'
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit {
   @Input() title;
 
@@ -26,6 +27,11 @@ export class HeaderComponent implements OnInit {
     this.socketService.socket.on('clients', (data) => {
       this.clients = data;
     })
+  }
+
+  // Check if connected to the keylogger server
+  isConnected() {
+    return this.socketService.socket.connected;
   }
 
 }
