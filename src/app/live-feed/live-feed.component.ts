@@ -1,4 +1,4 @@
-import { Component, IterableDiffers, OnInit } from '@angular/core';
+import { Component, IterableDiffers, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { SocketService } from '../socket.service'
 import { LogItem } from '../log-item'
@@ -11,8 +11,13 @@ import { LogItem } from '../log-item'
 
 export class LiveFeedComponent implements OnInit {
 
+  @ViewChild('content', { read: ElementRef }) private content: ElementRef;
+  @ViewChild('table') table:ElementRef;
+
   // Entries filter
   textFilter: string = '';
+
+  followStream: Boolean = true;
 
   // Entries array
   items: Array<LogItem> = [];
@@ -21,6 +26,27 @@ export class LiveFeedComponent implements OnInit {
   selectedHostnames: Array<String> = [];
 
   constructor(private socketService: SocketService) {}
+
+  onScroll(event) {
+    if (this.isAtBottom()) {
+      this.followStream = true;
+      return;
+    }
+    this.followStream = false;
+  }
+
+  isAtBottom(): Boolean {
+    const el = this.content.nativeElement;
+    if (el.scrollHeight - (el.scrollTop + el.clientHeight) <= 50) {
+      return true;
+    }
+    return false;
+  }
+
+  scrollAndFollow(event) {
+    event.preventDefault();
+    this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
+  }
 
   // Bind socket service data to entries
   ngOnInit() {

@@ -41,23 +41,29 @@ export class LogsTableComponent implements OnInit {
     this.differ = this.iterableDiffers.find([]).create(null);
   }
 
+  scrollToBottom() {
+    this.table.nativeElement.scrollIntoView({
+      block: "end",
+      behavior: "auto"
+    })
+  }
+
   ngOnChanges(changes) {
     this.dataSource.data = this.data
     this.dataSource.filter = this.filter.trim().toLowerCase()
   }
 
+  // Update the table data
   ngDoCheck() {
     let changes = this.differ.diff(this.data);
     if (changes) {
       this.dataSource.data = this.data
+    }
+  }
 
-      // Scroll to bottom
-      if (this.autoScroll) {
-        this.table.nativeElement.scrollIntoView({
-          block: "end",
-          behavior: "smooth"
-        })
-      }
+  ngAfterViewChecked() {
+    if (this.autoScroll) {
+      this.scrollToBottom()
     }
   }
 
@@ -72,12 +78,8 @@ export class LogsTableComponent implements OnInit {
       })
     }
 
-    // Scroll to bottom
     if (this.autoScroll) {
-      this.table.nativeElement.scrollIntoView({
-        block: "end",
-        behavior: "smooth"
-      })
+      this.scrollToBottom()
     }
   }
 
