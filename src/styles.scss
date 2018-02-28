@@ -1,0 +1,96 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@include mat-core();
+$primary: mat-palette($mat-blue-grey, 800);
+$accent: mat-palette($mat-teal, 600, 100, 800);
+$warn: mat-palette($mat-red, 600);
+$theme: mat-light-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);
+
+body,
+html {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+}
+
+app-root {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.mat-drawer-container {
+  height: calc(100% - 64px);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-drawer-container {
+  height: calc(100% - 64px);
+}
+
+.mat-sidenav {
+  background-color: #EEEEEE;
+  min-width: 300px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #009688;
+}
+
+.divider {
+  flex: 1 1 auto;
+}
+
+.search-bar {
+  margin-right: 15px;
+
+  .search-input {
+    padding: 10px;
+    display: block;
+    width: 100%;
+    min-width: 350px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+}
+
+.panel {
+  margin-bottom: 15px;
+  .panel-title {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #607D8B;
+    font-size: large;
+    color: #FFFFFF;
+  }
+}

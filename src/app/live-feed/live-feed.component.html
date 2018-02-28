@@ -1,0 +1,36 @@
+<mat-sidenav-container>
+
+  <mat-sidenav mode="side" opened="true" disableClose="true">
+
+    <app-hostnames-list [data]="items" [(selected)]="selectedHostnames"></app-hostnames-list>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content #content (scroll)="onScroll($event)">
+
+    <mat-toolbar>
+      <span class="search-bar">
+        <input
+          class="search-input"
+          placeholder="Type to filter.."
+          (keyup.esc)="textFilter = ''"
+          [(ngModel)]="textFilter"
+        />
+      </span>
+    </mat-toolbar>
+
+    <button class="follow-stream" (click)="scrollAndFollow($event)" [hidden]="isAtBottom()" mat-mini-fab>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+
+    <logs-table
+      #table
+      [data]="items | hostname: selectedHostnames"
+      [filter]="textFilter"
+      [selectable]="false"
+      [autoScroll]="followStream">
+    </logs-table>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

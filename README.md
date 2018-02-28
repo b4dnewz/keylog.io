@@ -64,7 +64,7 @@ For a full list of options see the [default](lib/index.js#L27-L49) options on so
 - [ ] Test key logger performances with multiple different hosts
 - [x] Handle mobile input events (mobile browsers support)
 - [ ] Complete the administrator interface with filters, groups, labels and stuff..
-- [ ] Create different routes for live feeds and archive
+- [x] Create different routes for live feeds and archive
 - [ ] Get drunk at the end of all this
 
 ---

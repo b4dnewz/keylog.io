@@ -10,7 +10,9 @@ keyloggerServer({
   serveClient: true,
   hostname: 'localhost',
   database: {
+    hostname: process.env.DBHOST,
     username: process.env.DBUSER,
-    password: process.env.DBPASS
+    password: process.env.DBPASS,
+    name: process.env.DBNAME
   }
 });

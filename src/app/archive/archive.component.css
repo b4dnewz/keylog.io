@@ -1,0 +1,10 @@
+.mat-form-field {
+  display: block;
+}
+
+.selected-items {
+  display: flex;
+  align-items: center;
+  color: #757575;
+  font-size: initial;
+}

@@ -1,0 +1,41 @@
+<mat-toolbar color="primary">
+
+  <mat-toolbar-row>
+
+    <span class="app-brand">
+      <span [routerLink]="['/']" class="app-logo" [ngClass]="{pulse: isConnected()}">
+        {{title}}
+      </span>
+    </span>
+
+    <span class="divider"></span>
+
+    <span class="app-nav">
+      <span class="clients-button">
+        <button mat-icon-button matTooltip="Active clients">
+          <mat-icon>people</mat-icon> {{clients.length || ''}}
+        </button>
+      </span>
+
+      <span class="explore-button">
+        <button [routerLink]="['/']" mat-icon-button matTooltip="Live feed">
+          <mat-icon>rss_feed</mat-icon> {{unseenLogs || ''}}
+        </button>
+      </span>
+
+      <span class="explore-button">
+        <button [routerLink]="['/archive']" mat-icon-button matTooltip="Archive">
+          <mat-icon>explore</mat-icon>
+        </button>
+      </span>
+
+      <span class="explore-button">
+        <a href="https://github.com/b4dnewz/keylog.io/issues" target="_blank" mat-icon-button matTooltip="Bug report">
+          <mat-icon>bug_report</mat-icon>
+        </a>
+      </span>
+    </span>
+
+  </mat-toolbar-row>
+
+</mat-toolbar>
