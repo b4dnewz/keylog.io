@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSnackBar, MatSort } from '@angular/material';
 
 import { environment } from '../../environments/environment'
 import { LogItem } from '../log-item'
@@ -33,13 +33,66 @@ export class ArchiveComponent implements OnInit {
   // Array of selected table rows
   selectedRows: Array<LogItem> = [];
 
-  constructor(private http: HttpClient) { }
+  // Pagination component options
+  total: number;
+  currentPage: number = 0;
+  pageSize: number = 50;
+  pageSizeOptions: Array<number> = [50, 100, 250, 500]
+
+  constructor(
+    private http: HttpClient,
+    private snackBar: MatSnackBar
+  ) { }
 
   // Build url params from object
   buildParams (obj) {
     return new HttpParams({
       fromObject: obj
     })
+  }
+
+  getItems(options:Object = {}) {
+    let opts = Object.assign({}, {
+      start: this.startDate.toUTCString(),
+      end: this.endDate.toUTCString(),
+      page: this.currentPage,
+      limit: this.pageSize
+    }, options)
+
+    let params = this.buildParams(opts)
+
+    return this.http.get<any>(this.apiUrl, {
+      params: params
+    }).subscribe(
+      data => {
+        // Show a snackbar to the user
+        if (data.data.length === 0) {
+          this.snackBar.open('There are not results.', 'DISMISS', {
+            duration: 2000,
+          });
+        }
+
+        this.items = data.data;
+        this.total = data.total;
+        this.currentPage = data.page;
+        this.pageSize = data.limit;
+      },
+      err => {
+        this.snackBar.open('There was an error with the request.', 'DISMISS', {
+          duration: 3500
+        });
+        this.items = []
+        this.total = 0;
+      }
+    )
+  }
+
+  // When the page or page limit is changed
+  changePage(event) {
+    return this.getItems({
+      page: event.pageIndex,
+      limit: event.pageSize
+    });
   }
 
   // Remove the selected entries
@@ -53,55 +106,25 @@ export class ArchiveComponent implements OnInit {
       )
     })
     this.selectedRows = []
+
+    // Update the current displayed items
+    return this.getItems();
   }
 
+  // When enter is pressed on the search/filter bar
   search (query) {
-    let params = this.buildParams({
-      start: this.startDate.toUTCString(),
-      end: this.endDate.toUTCString(),
-      search: query
-    })
-    this.http.get<Array<LogItem>>(this.apiUrl, {
-      params: params
-    }).subscribe(
-      data => {
-        this.items = data;
-      },
-      err => {
-        this.items = []
-      }
-    )
+    return this.getItems({
+      search: query,
+      page: 0
+    });
   }
 
   update () {
-    let params = this.buildParams({
-      start: this.startDate.toUTCString(),
-      end: this.endDate.toUTCString()
-    })
-    this.http.get<Array<LogItem>>(this.apiUrl, {
-      params: params
-    }).subscribe(
-      data => {
-        this.items = data;
-      },
-      err => {
-        console.log(err)
-        this.items = []
-      }
-    )
+    this.getItems();
   }
 
   ngOnInit() {
-    this.http.get<Array<LogItem>>(this.apiUrl)
-      .subscribe(
-        data => {
-          this.items = data;
-        },
-        err => {
-          console.log(err)
-          this.items = []
-        }
-      )
+    this.getItems();
   }
 
 }

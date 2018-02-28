@@ -57,6 +57,14 @@
       </span>
     </mat-toolbar>
 
+    <mat-paginator
+      #paginator
+      [length]="total"
+      (page)="changePage($event)"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+
     <logs-table
       [data]="items | hostname: selectedHostnames"
       [filter]="textFilter"
