@@ -26,11 +26,13 @@
   "dependencies": {
     "commander": "^2.13.0",
     "compression": "^1.7.1",
+    "devtools-detect": "^2.2.0",
     "express": "^4.16.2",
     "express-basic-auth": "^1.1.3",
     "moment": "^2.20.1",
     "mysql": "^2.15.0",
     "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4",
     "webpack": "^3.10.0"
   },
   "devDependencies": {
@@ -55,7 +57,6 @@
     "codelyzer": "^4.0.1",
     "concurrently": "^3.5.1",
     "core-js": "^2.4.1",
-    "devtools-detect": "^2.2.0",
     "dotenv": "^5.0.0",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -68,7 +69,6 @@
     "nodemon": "^1.14.12",
     "protractor": "~5.1.2",
     "rxjs": "^5.5.6",
-    "socket.io-client": "^2.0.4",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3",
