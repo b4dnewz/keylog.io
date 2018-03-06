@@ -4,7 +4,7 @@
 The backend consist of an [expressjs](https://expressjs.com/) webserver which serves the administrator interface using __Basic HTTP Authentication__ customizable from the options and a [socket.io](https://socket.io/) server wait and handle the receiving of key logs from various sources, stores them and forward them to the administrator interface for be seen and analyzed.
 
 #### Interface
-The administrator interface for visualize the key logs archive and the live key logs feed from various clients is built with Angular using [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6. The administrator interface comes with a basic HTTP authorization which defaults to: `keylog.io`
+The administrator interface for visualize the key logs archive and the live key logs feed from various clients is built with Angular using [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6. The administrator interface comes with a basic HTTP authorization which defaults to: `keylog-io`
 
 #### Client script
 The client script is a socketio.io client with key logger functions that try to hide himself by pausing when the dev-tools (inspector) is open. It catches only relevant keys and send them back to the server as a buffer with additional information, take a look at the [code](lib/client.js) if you want to see more.
@@ -67,8 +67,8 @@ keyloggerServer({
     password: 'pass'
   }
 });
-
 ```
+By default the administrator interface will have __Basic HTTP Authentication__ with values: `keylog-io`
 
 ## Options
 For a full list of options see the [default](lib/index.js#L27-L49) options on source code.
