@@ -23,13 +23,13 @@
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
 
-    <logs-table
+    <app-logs-table
       #table
       [data]="items | hostname: selectedHostnames"
       [filter]="textFilter"
       [selectable]="false"
       [autoScroll]="followStream">
-    </logs-table>
+    </app-logs-table>
 
   </mat-sidenav-content>
 

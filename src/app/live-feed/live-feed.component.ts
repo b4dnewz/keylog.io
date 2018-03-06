@@ -1,7 +1,7 @@
-import { Component, IterableDiffers, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, IterableDiffers, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 
-import { SocketService } from '../socket.service'
-import { LogItem } from '../log-item'
+import { SocketService } from '../socket.service';
+import { LogItem } from '../log-item';
 
 @Component({
   selector: 'app-live-feed',
@@ -9,13 +9,13 @@ import { LogItem } from '../log-item'
   styleUrls: ['./live-feed.component.css']
 })
 
-export class LiveFeedComponent implements OnInit {
+export class LiveFeedComponent implements OnInit, OnDestroy {
 
   @ViewChild('content', { read: ElementRef }) private content: ElementRef;
-  @ViewChild('table') table:ElementRef;
+  @ViewChild('table') table: ElementRef;
 
   // Entries filter
-  textFilter: string = '';
+  textFilter = '';
 
   followStream: Boolean = true;
 

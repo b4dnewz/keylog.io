@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MatTableDataSource, MatSnackBar, MatSort } from '@angular/material';
 
-import { environment } from '../../environments/environment'
-import { LogItem } from '../log-item'
+import { environment } from '../../environments/environment';
+import { LogItem } from '../log-item';
 
 @Component({
   selector: 'app-archive',
@@ -14,7 +14,7 @@ import { LogItem } from '../log-item'
 export class ArchiveComponent implements OnInit {
 
   // The internal API endpoint
-  apiUrl: string = `${environment.SERVER_URL}/api/archive`
+  apiUrl = `${environment.SERVER_URL}/api/archive`;
 
   // Init filter dates
   today: Date = new Date();
@@ -22,7 +22,7 @@ export class ArchiveComponent implements OnInit {
   endDate = new Date();
 
   // Text filer for entries table
-  textFilter: string = '';
+  textFilter = '';
 
   // The LogItem entries array
   items = [];
@@ -35,9 +35,9 @@ export class ArchiveComponent implements OnInit {
 
   // Pagination component options
   total: number;
-  currentPage: number = 0;
-  pageSize: number = 50;
-  pageSizeOptions: Array<number> = [50, 100, 250, 500]
+  currentPage = 0;
+  pageSize = 50;
+  pageSizeOptions: Array<number> = [50, 100, 250, 500];
 
   constructor(
     private http: HttpClient,
@@ -48,18 +48,18 @@ export class ArchiveComponent implements OnInit {
   buildParams (obj) {
     return new HttpParams({
       fromObject: obj
-    })
+    });
   }
 
-  getItems(options:Object = {}) {
-    let opts = Object.assign({}, {
+  getItems(options: Object = {}) {
+    const opts = Object.assign({}, {
       start: this.startDate.toUTCString(),
       end: this.endDate.toUTCString(),
       page: this.currentPage,
       limit: this.pageSize
-    }, options)
+    }, options);
 
-    let params = this.buildParams(opts)
+    const params = this.buildParams(opts);
 
     return this.http.get<any>(this.apiUrl, {
       params: params
@@ -81,10 +81,10 @@ export class ArchiveComponent implements OnInit {
         this.snackBar.open('There was an error with the request.', 'DISMISS', {
           duration: 3500
         });
-        this.items = []
+        this.items = [];
         this.total = 0;
       }
-    )
+    );
   }
 
   // When the page or page limit is changed
@@ -100,12 +100,12 @@ export class ArchiveComponent implements OnInit {
     this.selectedRows.forEach(r => {
       this.http.delete(`${this.apiUrl}/${r.id}`).subscribe(
         data => {
-          this.items.splice(this.items.indexOf(r), 1)
+          this.items.splice(this.items.indexOf(r), 1);
         },
         err => console.log('Error:', err)
-      )
-    })
-    this.selectedRows = []
+      );
+    });
+    this.selectedRows = [];
 
     // Update the current displayed items
     return this.getItems();

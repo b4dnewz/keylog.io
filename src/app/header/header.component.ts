@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { SocketService } from '../socket.service'
+import { SocketService } from '../socket.service';
 
 @Component({
   selector: 'app-header',
@@ -19,14 +19,14 @@ export class HeaderComponent implements OnInit {
 
   constructor(private socketService: SocketService) {
     this.socketService.counting.subscribe(v => {
-      this.unseenLogs = v
-    })
+      this.unseenLogs = v;
+    });
   }
 
   ngOnInit() {
     this.socketService.socket.on('clients', (data) => {
       this.clients = data;
-    })
+    });
   }
 
   // Check if connected to the keylogger server

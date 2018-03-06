@@ -65,12 +65,12 @@
       [pageSizeOptions]="pageSizeOptions">
     </mat-paginator>
 
-    <logs-table
+    <app-logs-table
       [data]="items | hostname: selectedHostnames"
       [filter]="textFilter"
       [selectable]="true"
       [(selected)]="selectedRows">
-    </logs-table>
+    </app-logs-table>
 
   </mat-sidenav-content>
 

@@ -1,20 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, IterableDiffers, ElementRef } from '@angular/core';
+import { OnInit, OnChanges, DoCheck, AfterViewChecked, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, IterableDiffers, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { LogItem } from '../log-item'
+import { LogItem } from '../log-item';
 
 @Component({
-  selector: 'logs-table',
+  selector: 'app-logs-table',
   templateUrl: './logs-table.component.html',
   styleUrls: ['./logs-table.component.css']
 })
 
-export class LogsTableComponent implements OnInit {
+export class LogsTableComponent implements OnInit, OnChanges, DoCheck, AfterViewChecked, AfterViewInit {
 
   @Input() autoScroll: Boolean = false;
   @Input() selectable: Boolean;
-  @Input() filter: string = '';
+  @Input() filter = '';
   @Input() data: Array<LogItem> = [];
 
   // Selection
@@ -35,7 +36,7 @@ export class LogsTableComponent implements OnInit {
     'hostname',
     'path',
     'timestamp'
-  ]
+  ];
 
   constructor(private iterableDiffers: IterableDiffers) {
     this.differ = this.iterableDiffers.find([]).create(null);
@@ -43,43 +44,43 @@ export class LogsTableComponent implements OnInit {
 
   scrollToBottom() {
     this.table.nativeElement.scrollIntoView({
-      block: "end",
-      behavior: "auto"
-    })
+      block: 'end',
+      behavior: 'auto'
+    });
   }
 
   ngOnChanges(changes) {
-    this.dataSource.data = this.data
-    this.dataSource.filter = this.filter.trim().toLowerCase()
+    this.dataSource.data = this.data;
+    this.dataSource.filter = this.filter.trim().toLowerCase();
   }
 
   // Update the table data
   ngDoCheck() {
-    let changes = this.differ.diff(this.data);
+    const changes = this.differ.diff(this.data);
     if (changes) {
-      this.dataSource.data = this.data
+      this.dataSource.data = this.data;
     }
   }
 
   ngAfterViewChecked() {
     if (this.autoScroll) {
-      this.scrollToBottom()
+      this.scrollToBottom();
     }
   }
 
   ngOnInit() {
-    this.dataSource.data = this.data
+    this.dataSource.data = this.data;
 
     if (this.selectable) {
-      this.displayedColumns.unshift('select')
+      this.displayedColumns.unshift('select');
       this.selection = new SelectionModel<LogItem>(true, []);
       this.selection.onChange.subscribe(v => {
-        this.selectedChange.emit(this.selection.selected)
-      })
+        this.selectedChange.emit(this.selection.selected);
+      });
     }
 
     if (this.autoScroll) {
-      this.scrollToBottom()
+      this.scrollToBottom();
     }
   }
 
@@ -91,7 +92,7 @@ export class LogsTableComponent implements OnInit {
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
-    return numSelected == numRows;
+    return numSelected === numRows;
   }
 
   // Toggle all rows
@@ -100,7 +101,7 @@ export class LogsTableComponent implements OnInit {
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
 
-    this.selectedChange.emit(this.selection.selected)
+    this.selectedChange.emit(this.selection.selected);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, IterableDiffers } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, IterableDiffers, DoCheck } from '@angular/core';
 
 @Component({
   selector: 'app-hostnames-list',
@@ -6,7 +6,7 @@ import { Component, Input, Output, EventEmitter, ViewChild, IterableDiffers } fr
   styleUrls: ['./hostnames-list.component.css']
 })
 
-export class HostnamesListComponent {
+export class HostnamesListComponent implements DoCheck {
 
   // Multiple selection checkbox group
   @ViewChild('channels') channels;
@@ -16,7 +16,7 @@ export class HostnamesListComponent {
 
   // Array of selected hostname entries
   @Input() selected: Array<any> = [];
-  @Output() selectedChange = new EventEmitter<Array<any>>()
+  @Output() selectedChange = new EventEmitter<Array<any>>();
 
   // The actual unique hostnames list
   differ: any;
@@ -28,18 +28,18 @@ export class HostnamesListComponent {
 
   // On entries change update unique hostnames
   ngDoCheck() {
-    let changes = this.differ.diff(this.data);
+    const changes = this.differ.diff(this.data);
     if (changes) {
       this.hostnames = Array.from(
         new Set(this.data.map(item => item.hostname)).values()
-      )
+      );
     }
   }
 
   // Filter entries using given hostname selection
   onSelectionChange() {
-    this.selected = this.channels.selectedOptions.selected.map(item => item.value)
-    this.selectedChange.emit(this.selected)
+    this.selected = this.channels.selectedOptions.selected.map(item => item.value);
+    this.selectedChange.emit(this.selected);
   }
 
 }

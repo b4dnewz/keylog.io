@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LiveFeedComponent } from './live-feed/live-feed.component'
-import { ArchiveComponent } from './archive/archive.component'
+import { LiveFeedComponent } from './live-feed/live-feed.component';
+import { ArchiveComponent } from './archive/archive.component';
 
 const routes: Routes = [
   {

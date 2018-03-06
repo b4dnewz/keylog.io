@@ -9,7 +9,7 @@ export class HostnamePipe implements PipeTransform {
     if (args.length === 0) {
       return value;
     }
-    return value.filter(o => args.includes(o.hostname))
+    return value.filter(o => args.includes(o.hostname));
   }
 
 }
