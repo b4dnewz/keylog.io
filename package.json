@@ -1,6 +1,6 @@
 {
   "name": "keylog.io",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "An express/socketio keylogger server with administrator interface.",
   "license": "MIT",
   "main": "main.js",
@@ -16,6 +16,7 @@
   "scripts": {
     "start": "concurrently \"ng serve -dop false --open\" \"npm run server\"",
     "server": "nodemon --watch ./lib ./scripts/dev-server.js",
+    "prebuild": "npm run lint",
     "build": "ng build --prod",
     "demo": "node ./example/index.js",
     "test": "ng test",
