@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  web:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3000"
+    environment:
+      DBHOST: db
+      DBUSER: keylog-io
+      DBPASS: keylog-io
+      SERVECLIENT: true
+      SERVEDEMO: true
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: keylogger
+      MYSQL_USER:     keylog-io
+      MYSQL_PASSWORD: keylog-io
