@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Vendor
 import { MomentModule } from 'angular2-moment';
-import { MaterialModule } from './Material/material.module';
+import { MaterialModule } from './material/material.module';
 
 // Router
 import { AppRoutingModule } from './app.router';
