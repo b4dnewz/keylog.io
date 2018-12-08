@@ -39,7 +39,7 @@ Usage: start [options]
 Options:
 
   -h, --hostname <host>  The address where start the server
-  -p, --port <port>      The port where start the server (default: 9000)
+  -p, --port <port>      The port where start the server (default: 3000)
   -c, --client           Serve the client keylogger file
   -d, --demo             Serve the demo client page
   -h, --help             output usage information
@@ -116,7 +116,7 @@ COMMIT;
 
 Run `npm run start` this will concurrently spin up the express/socketio development server and start angular-cli. It should open a browser page with the administrator interface, if not, vavigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Also it will serve a __keylogger client__ demo page at the address: `http://localhost:9000/demo/`
+Also it will serve a __keylogger client__ demo page at the address: `http://localhost:3000/demo/`
 
 ### Code scaffolding
 

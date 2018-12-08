@@ -30,7 +30,7 @@ program
   .command('start')
   .description('Start the keylogger server')
   .option('-h, --hostname <host>', 'The address where start the server')
-  .option('-p, --port <port>', 'The port where start the server', 9000)
+  .option('-p, --port <port>', 'The port where start the server', 3000)
   .option('-c, --client', 'Serve the client keylogger file')
   .option('-d, --demo', 'Serve the demo client page')
   .action(options => {
