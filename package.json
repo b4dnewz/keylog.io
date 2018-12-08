@@ -14,7 +14,8 @@
     "dist"
   ],
   "scripts": {
-    "start": "concurrently \"ng serve -dop false --open\" \"npm run server\"",
+    "start": "node scripts/server.js",
+    "dev": "concurrently \"ng serve -dop false --open\" \"npm run server\"",
     "server": "nodemon --watch ./lib ./scripts/dev-server.js",
     "prebuild": "npm run lint",
     "build": "ng build --prod",
