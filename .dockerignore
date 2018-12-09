@@ -1,7 +1,8 @@
+node_modules
 example
 e2e
 src
-/*.lock
+
 /*.conf.js
 
 # Ignore all json files but not package files
