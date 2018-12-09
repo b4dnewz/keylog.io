@@ -2,9 +2,8 @@ node_modules
 example
 e2e
 src
+screenshot.png
 
 /*.conf.js
-
-# Ignore all json files but not package files
 /*.json
 !/package*.json

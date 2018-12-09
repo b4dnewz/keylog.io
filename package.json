@@ -36,7 +36,6 @@
     "opn": "^5.2.0",
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4",
-    "tslib": "^1.9.0",
     "webpack": "^4.27.1"
   },
   "devDependencies": {
@@ -76,8 +75,9 @@
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "ts-node": "~7.0.1",
+    "tslib": "^1.9.0",
     "tslint": "~5.11.0",
-    "typescript": "^3.1.6",
+    "typescript": "3.1.x",
     "zone.js": "^0.8.19"
   }
 }
