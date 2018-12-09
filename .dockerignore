@@ -1,0 +1,9 @@
+node_modules
+example
+e2e
+src
+screenshot.png
+
+/*.conf.js
+/*.json
+!/package*.json

@@ -1,82 +1,120 @@
 # keylog.io
 
-#### Backend
+> A express/socketio keylogger server with administrator interface
+
+![Admin Interface](screenshot.png)
+
+### Backend
 The backend consist of an [expressjs](https://expressjs.com/) webserver which serves the administrator interface using __Basic HTTP Authentication__ customizable from the options and a [socket.io](https://socket.io/) server wait and handle the receiving of key logs from various sources, stores them and forward them to the administrator interface for be seen and analyzed.
 
-#### Interface
+### Interface
 The administrator interface for visualize the key logs archive and the live key logs feed from various clients is built with Angular using [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6. The administrator interface comes with a basic HTTP authorization which defaults to: `keylog-io`
 
-#### Client script
+### Client script
 The client script is a socketio.io client with key logger functions that try to hide himself by pausing when the dev-tools (inspector) is open. It catches only relevant keys and send them back to the server as a buffer with additional information, take a look at the [code](lib/client.js) if you want to see more.
 
 ---
 
 ## Installation
-The best way to use it is installing it globally so you have access at the __keylog-io__ command anytime you want to spin up quickly your keylog server.
-```
-npm install -g keylog.io
 
-```
-or
-```
-yarn global add keylog.io
-```
-Than type `-h` or `--help` anytime to get informations about the program or the commands, for example:
-```
-$ keylog-io --help
+This project comes in three different ways, you can use it as a node module, as a command (globally installed package) or through the official docker image.
 
-Commands:
+#### As a node module
 
-  start [options]                    Start the keylogger server
-  build [options] <hostname> [port]  Build the client flle for the given endpoint
-```
-or sub commands for example:
-```
-$ keylog-io start --help
+First install the module locally using your favourite package manager:
 
-Usage: start [options]
-
-Options:
-
-  -h, --hostname <host>  The address where start the server
-  -p, --port <port>      The port where start the server (default: 9000)
-  -c, --client           Serve the client keylogger file
-  -d, --demo             Serve the demo client page
-  -h, --help             output usage information
-```
-You can also optionally [setup a database]() to use for storing persistently the keylog entries you grab with the client payload.
-
-## Basic usage
-You can also use it in your applications or scripts like a normal nodejs module.
-First of all install it using __npm__ or __yarn__:
 ```
 npm install keylog.io
 yarn add keylog.io
 ```
-Than require it in your code and use it like in the example below, it takes only few options:
-```js
-const keyloggerServer = require('keylog.io');
 
-// Start the server connected with database
+Than you can start it manually in your code when you need it:
+
+```js
+import keyloggerServer from 'keylog.io'
+
 keyloggerServer({
   serveDemo: true,
-  serveClient: true,
-  database: {
-    name: 'keylogger',
-    username: 'user',
-    password: 'pass'
-  }
+  serveClient: true
 });
 ```
+
+#### As a command
+
+Install it as global package using your favorite package manager:
+
+```
+npm install -g keylog.io
+yarn global add keylog.io
+```
+
+Once has been installed you can access it through the command `keylog-io` like the example below:
+
+```
+$ keylog-io --help
+
+  Usage: keylog-io [options] [command]
+
+  A express/socketio keylogger server with administrator interface
+
+  Options:
+
+    -V, --version  output the version number
+    -h, --help     output usage information
+
+  Commands:
+
+    start [options]                    Start the keylogger server
+    build [options] <hostname> [port]  Build the client flle for the given endpoint
+```
+
+You can also print the usage information for the sub commands, for example `keylog-io start --help` will print the `start` command usage informations.
+
+#### As a docker container
+
+Pull the official image from the docker hub:
+
+```
+docker pull b4dnewz/keylog-io
+```
+
+Than run it with some options to bind the port to your host:
+
+```
+docker run -it --rm -p 3000:3000 b4dnewz/keylog-io
+```
+
+You can now access it via http://localhost:3000 and you should be able to access the administrator interface.
+
+If you want to further customize the execution you can set environment variables to enable/disable features:
+
+```
+docker run -d --name keylogger -p 3000:3000 -e SERVECLIENT=true b4dnewz/keylog-io
+```
+
+Here a list of all the available environment variables that will be forwarded to the module execution:
+
+* __SERVECLIENT__: Serve the keylogger client accessible at `hostname:port/client.min.js`
+* __SERVEDEMO__: Serve a demo page accessible on `hostname:port/demo`
+* __DBUSER__: The database user name
+* __DBPASS__: The database user password
+* __DBNAME__: The database name where store the data
+
+
 By default the administrator interface will have __Basic HTTP Authentication__ with values: `keylog-io`
 
 ## Options
+
 For a full list of options see the [default](lib/index.js#L27-L49) options on source code.
 
 ## Database
-If you want to use the MySQL database to __persist the keylog entries__ across time when used multiple times or for using the
-archive page to analyze your findings later using the filters, you must setup a table called __keylogs__, the suggested
-table structure is the following but you can adapt the sized to your needs or suggest a more optimized structure. You can customize the database name using the `database` options property which is an object that let you configure the details of the connection to your MySQL instance.
+
+If you want to __persist the keylog entries__ across time or for using the archive page to analyze your findings later, using the filters and more, you must have a __working MySQL instance__ with a database containing one table called __keylogs__. You can customize the database name using the `database.name` option when starting the server.
+
+#### Table structure
+
+The default table structure suggested is the following but you can adapt the sizing to your needs or suggest a more optimized structure by opening a new issue.
+
 ```sql
 CREATE TABLE `keylogs` (
   `id` int(11) NOT NULL,
@@ -96,9 +134,12 @@ ALTER TABLE `keylogs`
 COMMIT;
 ```
 
+You can also link a database using [docker links](https://docs.docker.com/network/links/) if you are using __keylog.io__ from a container.
+
 ---
 
 ## Todo
+
 - [x] Basic HTTP Authentication for administrator interface with options for username and password
 - [x] Optionally save key logs results on a MySQL database
 - [x] Change behavior, pausing and trying to hide when devtools is open
@@ -116,7 +157,7 @@ COMMIT;
 
 Run `npm run start` this will concurrently spin up the express/socketio development server and start angular-cli. It should open a browser page with the administrator interface, if not, vavigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Also it will serve a __keylogger client__ demo page at the address: `http://localhost:9000/demo/`
+Also it will serve a __keylogger client__ demo page at the address: `http://localhost:3000/demo/`
 
 ### Code scaffolding
 
@@ -153,4 +194,5 @@ To get more informations about Socket.io visit the [official](https://socket.io/
 ---
 
 ## License
+
 The __keylog.io__ is released under the MIT License by [b4dnewz](https://b4dnewz.github.io/).
