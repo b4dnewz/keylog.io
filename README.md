@@ -109,29 +109,25 @@ For a full list of options see the [default](lib/index.js#L27-L49) options on so
 
 ## Database
 
-If you want to __persist the keylog entries__ across time or for using the archive page to analyze your findings later, using the filters and more, you must have a __working MySQL instance__ with a database containing one table called __keylogs__. You can customize the database name using the `database.name` option when starting the server.
+If you want to __persist the keylog entries__ across time or for using the archive page to analyze your findings later or using the filters and more, you must have a __working MySQL instance__ and tell to keylog.io to use it.
+
+It will create automatically a table called __keylogs__ where it will store all the received keylogs from clients. You can customize the database connection options such as database name using the `database.name` option or more in general the `database` option object when starting the server.
 
 #### Table structure
 
-The default table structure suggested is the following but you can adapt the sizing to your needs or suggest a more optimized structure by opening a new issue.
+The default table structure created is the following but you can customize it later using a mysql client or suggest me a better structure using the [issues](issues) section of this project.
 
 ```sql
-CREATE TABLE `keylogs` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `keylogs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `hostname` varchar(50) NOT NULL,
   `element` varchar(50) NOT NULL,
   `key` varchar(50) NOT NULL,
   `path` varchar(255) NOT NULL,
-  `timestamp` timestamp NULL DEFAULT current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  KEY (`id`),
+  INDEX `HOSTNAME_INDEX` (`hostname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-ALTER TABLE `keylogs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `HOSTNAME_INDEX` (`hostname`);
-
-ALTER TABLE `keylogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
 ```
 
 You can also link a database using [docker links](https://docs.docker.com/network/links/) if you are using __keylog.io__ from a container.
@@ -145,6 +141,7 @@ You can also link a database using [docker links](https://docs.docker.com/networ
 - [x] Change behavior, pausing and trying to hide when devtools is open
 - [x] Create different routes for live feeds and archive
 - [x] Handle mobile input events (mobile browsers support)
+- [x] Automatic database table setup when using database mode
 - [ ] Test key logger performances with multiple different hosts
 - [ ] Complete the administrator interface with filters, groups, labels and stuff..
 - [ ] Write a good documentation with examples and video use during simulated MITM attacks

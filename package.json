@@ -2,7 +2,9 @@
   "name": "keylog.io",
   "version": "0.1.6",
   "description": "A express/socketio keylogger server with administrator interface",
+  "author": "Filippo <b4dnewz> Conti",
   "license": "MIT",
+  "repository": "git@github.com:b4dnewz/keylog.io.git",
   "main": "main.js",
   "bin": {
     "keylog-io": "lib/cli.js"
