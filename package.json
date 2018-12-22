@@ -1,6 +1,6 @@
 {
   "name": "keylog.io",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A express/socketio keylogger server with administrator interface",
   "author": "Filippo <b4dnewz> Conti",
   "license": "MIT",
